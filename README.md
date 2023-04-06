@@ -1,5 +1,5 @@
 # Ciphers-Audition
-Just to facilitate TLS' ciphers validation based on ciphersuite.
+Just a bash script to facilitate TLS' ciphers validation based on ciphersuite.
 
 
 #### Usage
