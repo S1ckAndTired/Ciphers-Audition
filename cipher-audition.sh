@@ -14,6 +14,7 @@ do
   echo $ciphers >> .out
 done
 cat .out | sed -n '/^TLSv/{h;n}; /^TLS_/{G;s/\n/-/p}' >> .ready-to-go
+echo "[*] Requesting ciphersuite"
 for ciphers in $(cat .ready-to-go)
 do
   cipher=$(echo $ciphers | awk -F "-" '{print $1}')
@@ -24,7 +25,8 @@ do
   #version=$(echo $response | tr ' ' '\n' | grep "^TLS" | sed 's/,$//' | grep "[0-9]$ | paste -sd ' '")
   if [[ -z "$result1" ]];then
     not="!Not Found!"
-    echo -e "[$OnRed$not$NC] - [$OnRed$cipher$NC]"
+    info="MANUAL SEARCH REQUIRED"
+    echo -e "[$Red$not$NC] - [$Red$cipher$NC] - [$Red$info$NC]"
   elif [[ "Weak" == *"$result2"*  ]];then
     echo -e "[$Yellow$result2$NC] - [$Yellow$result1$NC] - [$version]"
   elif [[ "Insecure" == *"$result2"* ]];then
